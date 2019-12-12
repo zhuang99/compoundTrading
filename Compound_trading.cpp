@@ -1,36 +1,54 @@
-#include<iostream>
-#include<cmath>
-#include<string>
+#include <iostream>
+#include <cmath>
+#include <string>
 using namespace std;
 
-int main(){
+long long calculate_compound(double percentPerDay, long long initialFund, int days)
+{
+    long long sum = initialFund * pow((1 + percentPerDay / 100), days);
+}
+
+int main()
+{
     double percentPerDay;
-    double initialFund;
+    long long initialFund;
     int days;
 
-    long sum;
+    cout << "Compound Calculator" << endl;
+    cout << "enter day/month/year: ";
+    cin >> days;
+    cout << "enter initial fund: $";
+    cin >> initialFund;
+    cout << "enter percent per day/month/year(%): ";
+    cin >> percentPerDay;
 
-    cout<<"Compound Calculator\nenter percent per day(%): ";
-    cin>>percentPerDay;
-    cout<<"enter initial found: ";
-    cin>>initialFund;
-    cout<<"enter days: ";
-    cin>>days;
-
-    sum = initialFund * pow((1+ percentPerDay/100), days);
-    cout<<endl<<"##############\n#            #\n#   "<<sum;
-    string bnk;
-    int digit = to_string(sum).length();
-    int bnk_space = 9 - digit;
-
-    for(int i = 0; i < bnk_space; i++){
-        bnk+=" ";
+    long long result = calculate_compound(percentPerDay, initialFund, days);
+    if (result < 0 || result > 9223372036854775807)
+    {
+        cerr << "invalid inputs" << endl;
+        exit(1);
     }
-    //cout<<digit<<endl;
-    
 
-    cout<<bnk<<"#\n#            #\n##############"<<endl;
+    int digit = to_string(result).length();
 
-    cout<<endl;
-    cout<<"Trade Safe!!"<<endl;
+    string top = "\n####";
+    string top1 = "#    ";
+    string bottom1 = "#    ";
+    string bottom = "####";
+    for (int i = 0; i < digit + 1; i++)
+    {
+        top += "#";
+        top1 += " ";
+        bottom1 += " ";
+        bottom += "#";
+    }
+    top += "####\n";
+    top1 += "  #\n";
+    bottom1 += "  #\n";
+    bottom += "####\n";
+    cout << top << top1 << "#   $" << result << "   #\n";
+    cout << bottom1 << bottom << endl;
+
+    cout << "Trade Safe!!" << endl;
+    return 0;
 }
